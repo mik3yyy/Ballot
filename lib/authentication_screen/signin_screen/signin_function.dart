@@ -1,0 +1,3 @@
+class SigninFunction {
+  void googleAuth() {}
+}

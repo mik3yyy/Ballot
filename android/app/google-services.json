@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171496302027",
+    "project_id": "kiasup-messaging",
+    "storage_bucket": "kiasup-messaging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171496302027:android:0b64ae8e5423fa295a024e",
+        "android_client_info": {
+          "package_name": "com.netcom.kiasup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTH1EVJGJULHX4JVcbK8wjfFTD8GNlW84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
