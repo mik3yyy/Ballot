@@ -79,19 +79,20 @@ class _CustomButtonState extends State<CustomButton> {
 }
 
 class CustomButtonSecondary extends StatefulWidget {
-  const CustomButtonSecondary(
-      {super.key,
-      this.loading = false,
-      required this.onTap,
-      required this.title,
-      this.enable = true,
-      this.textSize,
-      this.color,
-      this.textColor,
-      this.width,
-      this.height,
-      this.style,
-      this.border});
+  const CustomButtonSecondary({
+    super.key,
+    this.loading = false,
+    required this.onTap,
+    required this.title,
+    this.enable = true,
+    this.textSize,
+    this.color,
+    this.textColor,
+    this.width,
+    this.height,
+    this.style,
+    this.border,
+  });
   final bool loading;
   final bool enable;
   final VoidCallback onTap;
