@@ -1,4 +1,4 @@
-package bu.ballot.ballot
+package bu.buvote.ballot
 
 import io.flutter.embedding.android.FlutterActivity
 

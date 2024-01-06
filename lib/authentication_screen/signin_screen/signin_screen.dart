@@ -1,6 +1,11 @@
 import 'package:ballot/settings/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/user_provider.dart';
+import '../../model/user_model.dart';
+import '../../screens/main_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -20,6 +25,21 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       var res = await _googleSignIn.signIn();
       print(res);
+
+      // Create a UserModel instance
+      UserModel user = UserModel(
+        displayName: res?.displayName ?? 'N/A',
+        email: res!.email,
+        id: res.id,
+        photoUrl: res.photoUrl,
+        serverAuthCode: res.serverAuthCode,
+      );
+
+      // Set user in the provider
+      Provider.of<UserProvider>(context, listen: false).setUser(user);
+
+      // push to the home screen
+      Navigator.pushReplacementNamed(context, MainScreen.id);
     } catch (error) {
       print(error);
     }
