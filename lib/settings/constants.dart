@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Constants {
-  static String url = "http://api.devbracket.tech/api/v1";
-  //"http://api.devbracket.tech/api/v1";
-  //https://api.kiasup.com/api/v1
+  static String url = "https://bucc-ballot-backend.onrender.com/";
 
   static Color yellow = Color(0xFFFFD354);
   static Color blue = Color(0xFF20448F);
@@ -19,25 +17,6 @@ class Constants {
   static Color primaryPink = Color(0xFFF4739E);
   static Color darkPink = Color(0xFFFF4881);
 
-  static Map<String, dynamic> DonorMainColor = {
-    "find": {
-      "icon": Color(0xFFFA6393),
-      "bg": Color(0xFFFA6393).withOpacity(0.4)
-    },
-    "request": {
-      "icon": Color(0xFFF5B800),
-      "bg": Color(0xFFF5B800).withOpacity(0.4),
-    },
-    "bank": {
-      "icon": Color(0xFF00CC99),
-      "bg": Color(0xFF00CC99).withOpacity(0.4)
-    },
-    "other": {
-      "icon": Color(0xFF999999),
-      "bg": Color(0xFF999999).withOpacity(0.4),
-    },
-    "subTitle": Color(0xFF519FE8)
-  };
 // F7A1A3
   ///STYLE
   static TextStyle title = TextStyle(

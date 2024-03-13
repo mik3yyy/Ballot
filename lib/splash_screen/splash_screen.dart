@@ -1,5 +1,7 @@
 import 'package:ballot/onboarding_screen/onboarding_screen.dart';
+import 'package:ballot/screens/Home%20Screen/home_screen.dart';
 import 'package:ballot/settings/constants.dart';
+import 'package:ballot/settings/hive.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,8 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, OnboardingScreen.id);
+      if (HiveFunction.tokenExist()) {
+        Navigator.pushReplacementNamed(context, HomeScreen.id);
+      } else {
+        Navigator.pushReplacementNamed(context, OnboardingScreen.id);
+      }
     });
   }
 

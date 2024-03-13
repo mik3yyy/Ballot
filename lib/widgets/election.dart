@@ -10,14 +10,14 @@
 //   final String title;
 //   final String description;
 //   final List<Map> elections;
-//   Color _getColorForIndex(int index) {
-//     const List<Color> colors = [
-//       Color(0xff7C4236), // First color
-//       Color(0xff209276), // Second color
-//       Color(0xff455A64), // Third color
-//     ];
-//     return colors[index % colors.length];
-//   }
+// Color _getColorForIndex(int index) {
+//   const List<Color> colors = [
+//     Color(0xff7C4236), // First color
+//     Color(0xff209276), // Second color
+//     Color(0xff455A64), // Third color
+//   ];
+//   return colors[index % colors.length];
+// }
 //   _navigateToNextScreen(Map e, context) {
 //     if (e['type'] == 'ongoing') {
 //       Navigator.pushNamed(context, ElectionScreen.id);
@@ -104,16 +104,14 @@
 import 'package:flutter/material.dart';
 import 'package:ballot/screens/election_screen.dart';
 
-class Election extends StatelessWidget {
+class ElectionWidget extends StatelessWidget {
   final String title;
   final String description;
-  final List<Map> elections;
 
-  const Election({
+  const ElectionWidget({
     Key? key,
     required this.title,
     required this.description,
-    required this.elections,
   }) : super(key: key);
 
   Color _getColorForIndex(int index) {
@@ -139,61 +137,10 @@ class Election extends StatelessWidget {
           ),
         ),
         Text(description),
-        ...elections.map((election) {
-          int index = elections.indexOf(election);
-          return Container(
-            padding: const EdgeInsets.all(20),
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(
-              color: _getColorForIndex(index),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: ClipOval(
-                    child: Image.network(
-                      election['icon_link'],
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        election['title'],
-                        style: const TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        election['description'],
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    if (election['type'] == 'ongoing') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ElectionScreen(electionData: election),
-                        ),
-                      );
-                    }
-                  },
-                  icon: const Icon(Icons.navigate_next, color: Colors.white),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
+        // ...electionWidgets.map((electionWidget) {
+        //   int index = elections.indexOf(election);
+        //   return Container();
+        // }).toList(),
       ],
     );
   }

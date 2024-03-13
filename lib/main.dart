@@ -1,4 +1,7 @@
+import 'package:ballot/screens/Home%20Screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import './provider/user_provider.dart';
@@ -9,7 +12,13 @@ import 'screens/election_screen.dart';
 import 'screens/main_screen.dart';
 import 'splash_screen/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  await Hive.openBox('ballot');
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
     MultiProvider(
       providers: [
@@ -42,6 +51,7 @@ class MyApp extends StatelessWidget {
         OnboardingScreen.id: (context) => OnboardingScreen(),
         SignInScreen.id: (context) => SignInScreen(),
         MainScreen.id: (context) => MainScreen(),
+        HomeScreen.id: (context) => HomeScreen()
         // ElectionScreen.id: (context) => ElectionScreen(),
       },
     );

@@ -43,7 +43,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             appBar: AppBar(actions: [
               CustomTextButton(
                 text: "Skip",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, SignInScreen.id);
+                },
               )
             ]),
             body: Container(

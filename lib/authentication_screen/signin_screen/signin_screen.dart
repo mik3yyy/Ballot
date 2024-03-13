@@ -1,3 +1,4 @@
+import 'package:ballot/authentication_screen/signin_screen/signin_function.dart';
 import 'package:ballot/settings/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -23,23 +24,35 @@ class _SignInScreenState extends State<SignInScreen> {
       ],
     );
     try {
-      var res = await _googleSignIn.signIn();
-      print(res);
+      _googleSignIn.signIn().then((result) {
+        result?.authentication.then((googleKey) async {
+          // print(googleKey.accessToken);
+          // print(googleKey.idToken);
+          // print(_googleSignIn.currentUser?.displayName);
+
+          await SigninFunction.googleAuth(
+              token: googleKey.idToken!, context: context);
+        }).catchError((err) {
+          print('inner error');
+        });
+      }).catchError((err) {
+        print('error occured');
+      });
 
       // Create a UserModel instance
-      UserModel user = UserModel(
-        displayName: res?.displayName ?? 'N/A',
-        email: res!.email,
-        id: res.id,
-        photoUrl: res.photoUrl,
-        serverAuthCode: res.serverAuthCode,
-      );
+      // UserModel user = UserModel(
+      //   displayName: res?.displayName ?? 'N/A',
+      //   email: res!.email,
+      //   id: res.id,
+      //   photoUrl: res.photoUrl,
+      //   serverAuthCode: res.serverAuthCode,
+      // );
 
-      // Set user in the provider
-      Provider.of<UserProvider>(context, listen: false).setUser(user);
+      // // Set user in the provider
+      // Provider.of<UserProvider>(context, listen: false).setUser(user);
 
-      // push to the home screen
-      Navigator.pushReplacementNamed(context, MainScreen.id);
+      // // push to the home screen
+      // Navigator.pushReplacementNamed(context, MainScreen.id);
     } catch (error) {
       print(error);
     }

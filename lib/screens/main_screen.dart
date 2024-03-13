@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'event_screen.dart';
-import 'home_screen.dart';
+import 'Home Screen/home_screen.dart';
 import 'profile_screen.dart';
 import 'task_screen.dart';
 
@@ -36,7 +36,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         body: _getSelectedWidget(_currentIndex),
@@ -58,21 +57,21 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text("Home"),
               selectedColor: Colors.white,
             ),
-      
+
             /// Likes
             SalomonBottomBarItem(
               icon: const Icon(Icons.event_note),
               title: const Text("Events"),
               selectedColor: Colors.white,
             ),
-      
+
             /// Search
             SalomonBottomBarItem(
               icon: const Icon(Icons.format_list_bulleted),
               title: const Text("Tasks"),
               selectedColor: Colors.white,
             ),
-      
+
             /// Profile
             SalomonBottomBarItem(
               icon: const Icon(Icons.person),
