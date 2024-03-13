@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import 'event_screen.dart';
+// import 'event_screen.dart';
 import 'Home Screen/home_screen.dart';
-import 'profile_screen.dart';
-import 'task_screen.dart';
+// import 'profile_screen.dart';
+// import 'task_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -24,11 +24,11 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return HomeScreen();
       case 1:
-        return EventScreen();
-      case 2:
-        return TaskScreen();
-      case 3:
-        return ProfileScreen();
+      // return EventScreen();
+      // case 2:
+      //   return TaskScreen();
+      // case 3:
+      //   return ProfileScreen();
       default:
         return HomeScreen();
     }

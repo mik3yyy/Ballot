@@ -1,4 +1,5 @@
 import 'package:ballot/global_comonents/myMessageHandler.dart';
+import 'package:ballot/screens/Home%20Screen/home_function.dart';
 import 'package:ballot/screens/Home%20Screen/home_screen.dart';
 import 'package:ballot/settings/constants.dart';
 import 'package:ballot/settings/hive.dart';
@@ -21,6 +22,7 @@ class SigninFunction {
       );
       if (res['success']) {
         HiveFunction.insertToken(res['data']['token']);
+        await HomeFunction.getUserData(context: context);
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),

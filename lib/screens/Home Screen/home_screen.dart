@@ -1,9 +1,11 @@
 import 'package:ballot/model/election.dart';
+import 'package:ballot/screens/Election%20Screen/election_screen.dart';
 import 'package:ballot/screens/Home%20Screen/home_function.dart';
 import 'package:ballot/settings/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:redacted/redacted.dart';
 
 import '../../provider/election_provider.dart';
 import '../../widgets/election.dart';
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     HomeFunction.getData(context: context);
+    HomeFunction.getUserData(context: context);
   }
 
   Color _getColorForIndex(int index) {
@@ -38,13 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     print(HiveFunction.getToken());
-    UserModel? user = Provider.of<UserProvider>(context).user;
+    UserModel? user = HiveFunction.getUser();
     final electionProvider = Provider.of<ElectionProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Hi'),
+        title: Text('Hi ${user.displayName}'),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -57,24 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Exercise your right to vote in the upcoming election within the Babcock University community.',
             ),
             Gap(10),
-            if (electionProvider.upcomingElections.isEmpty) ...[
-              const NoElection(
-                title: 'No elections coming up.',
-                description: 'Stay tuned for upcoming election announcements.',
-              ),
-            ] else if (electionProvider.upcomingElections.isNotEmpty) ...[
+            if (electionProvider.upcomingElections == null) ...[
               Expanded(
-                // height:/ 400,
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    Election election =
-                        electionProvider.upcomingElections[index];
-
                     return Container(
                       padding: const EdgeInsets.all(20),
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
-                        color: _getColorForIndex(index),
+                        color: _getColorForIndex(0),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
@@ -82,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(
                             height: 50,
                             width: 50,
-                            child: ClipOval(child: Icon(Icons.elderly)),
+                            // child: ClipOval(child: Icon(Icons.)),
                           ),
                           const SizedBox(
                             width: 10,
@@ -92,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  election.name,
+                                  "dl;fmlp",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
@@ -100,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 5,
                                 ),
                                 Text(
-                                  election.description,
+                                  'dgg',
                                   style: const TextStyle(
                                     color: Colors.white,
                                   ),
@@ -108,20 +102,86 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {
-                              // _navigateToNextScreen(e, context);
-                            },
-                            icon: const Icon(
-                              Icons.navigate_next,
-                              color: Colors.white,
-                            ),
+                          Icon(
+                            Icons.navigate_next,
+                            color: Colors.white,
                           ),
                         ],
                       ),
+                    ).redact(context);
+                  },
+                  itemCount: 3,
+                ),
+              )
+            ] else if (electionProvider.upcomingElections!.isEmpty) ...[
+              const NoElection(
+                title: 'No elections coming up.',
+                description: 'Stay tuned for upcoming election announcements.',
+              ),
+            ] else if (electionProvider.upcomingElections!.isNotEmpty) ...[
+              Expanded(
+                // height:/ 400,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    Election election =
+                        electionProvider.upcomingElections![index];
+
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ElectionScreen(electionData: election)));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: _getColorForIndex(index),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: ClipOval(child: Icon(Icons.elderly)),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    election.name,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    election.description,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.navigate_next,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
                     );
                   },
-                  itemCount: electionProvider.upcomingElections.length,
+                  itemCount: electionProvider.upcomingElections?.length ?? 3,
                 ),
               )
             ],

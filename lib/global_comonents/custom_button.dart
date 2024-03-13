@@ -45,7 +45,7 @@ class _CustomButtonState extends State<CustomButton> {
           width: widget.width ?? MediaQuery.of(context).size.width * 0.9,
           height: widget.height ?? 50,
           decoration: BoxDecoration(
-              color: widget.color ?? Constants.darkPink,
+              color: widget.color ?? Constants.blue,
               borderRadius: BorderRadius.circular(16),
               border: widget.border),
           child: Stack(

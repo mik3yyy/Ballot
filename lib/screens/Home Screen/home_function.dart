@@ -1,7 +1,9 @@
 import 'package:ballot/global_comonents/myMessageHandler.dart';
 import 'package:ballot/model/election.dart';
+import 'package:ballot/model/user_model.dart';
 import 'package:ballot/provider/election_provider.dart';
 import 'package:ballot/settings/constants.dart';
+import 'package:ballot/settings/hive.dart';
 import 'package:ballot/settings/http.dart';
 import 'package:ballot/widgets/election.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,31 @@ class HomeFunction {
         MyMessageHandler.showSnackBar(context, res['detail']);
       }
     } catch (e) {
+      MyMessageHandler.showSnackBar(context, "Check your network");
+    }
+  }
+
+  static Future<void> getUserData({
+    required BuildContext context,
+  }) async {
+    final electionProvider =
+        Provider.of<ElectionProvider>(context, listen: false);
+
+    try {
+      var res = await HTTP.get(
+        link: '${Constants.url}students/get-data',
+      );
+      print(res);
+
+      if (res['success']) {
+        HiveFunction.saveUser(UserModel.fromMap(res['data']));
+        print('HIve: ${HiveFunction.getUser()}');
+      } else {
+        MyMessageHandler.showSnackBar(context, res['detail']);
+      }
+    } catch (e) {
+      print(e.toString());
+
       MyMessageHandler.showSnackBar(context, "Check your network");
     }
   }

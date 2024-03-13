@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(Duration(seconds: 2), () {
-      if (HiveFunction.tokenExist()) {
+      if (HiveFunction.tokenExist() && HiveFunction.userExist()) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       } else {
         Navigator.pushReplacementNamed(context, OnboardingScreen.id);
